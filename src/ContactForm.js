@@ -4,7 +4,8 @@ function ContactForm() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    message: ''
+    message: '',
+    phone: ''
   });
 
   const [submittedData, setSubmittedData] = useState(null);
@@ -21,16 +22,16 @@ function ContactForm() {
   const validate = () => {
     const newErrors = {};
 
-    if (!formData.name.trim()) {
-      newErrors.name = 'Name is required';
-    }
-
-    if (!formData.email.includes('@')) {
-      newErrors.email = 'Invalid email';
-    }
-
-    if (!formData.message.trim()) {
-      newErrors.message = 'Message is required';
+    if (!formData.name.trim()) newErrors.name = 'Name is required';
+    if (!formData.email.includes('@')) newErrors.email = 'Invalid email';
+    if (!formData.message.trim()) newErrors.message = 'Message is required';
+    
+    // Phone validation: Regex for exactly 10 digits
+    const phoneRegex = /^\d{10}$/;
+    if (!formData.phone.trim()) {
+      newErrors.phone = 'Phone number is required';
+    } else if (!phoneRegex.test(formData.phone)) {
+      newErrors.phone = 'Phone must be exactly 10 digits (e.g., 1234567890)';
     }
 
     return newErrors;
@@ -38,16 +39,10 @@ function ContactForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     const validationErrors = validate();
-
     if (Object.keys(validationErrors).length === 0) {
       setSubmittedData(formData);
-      setFormData({
-        name: '',
-        email: '',
-        message: ''
-      });
+      setFormData({ name: '', email: '', message: '', phone: '' }); // Clear phone
       setErrors({});
     } else {
       setErrors(validationErrors);
@@ -99,6 +94,20 @@ function ContactForm() {
           {errors.message && <p style={{ color: 'red' }}>{errors.message}</p>}
         </label>
 
+        <br /><br />
+
+        <label>
+          Phone Number:
+          <br />
+            <input 
+              type="tel" 
+              name="phone" 
+              placeholder="1234567890"
+              value={formData.phone} 
+              onChange={handleChange} 
+          />
+          {errors.phone && <p style={{color: 'red', fontSize: '12px'}}>{errors.phone}</p>}
+        </label>
         <br /><br />
 
         <button type="submit">Submit</button>
