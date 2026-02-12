@@ -6,14 +6,18 @@ This project shows how a React contact form is built using controlled components
 ## Features
 - Controlled form inputs
 - Real-time state management with useState
-- Basic form validation
+- Dynamic form validation
 - Conditional rendering of submitted data
+- Tailwind UI
 
 ## Technologies
 - React
 - JavaScript (ES6+)
 - HTML5
 - CSS
+- State Management 
+-  Error Handling 
+- Conditional Rendering
 
 ## Author
 Nina Janev
