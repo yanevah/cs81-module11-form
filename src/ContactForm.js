@@ -50,77 +50,85 @@ function ContactForm() {
   };
 
   return (
-    <div>
-      <h2>Contact Us</h2>
-
-      <form onSubmit={handleSubmit}>
-        <label>
-          Name:
-          <br />
-          <input
-            type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
+   
+    <div className="min-h-screen bg-gray-100 py-12 px-4 flex flex-col items-center">
+      <div className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md">
+        <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">Contact Us</h2>
+      
+      <form onSubmit={handleSubmit} className="space-y-4">
+        {/* Name Field */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700">Name</label>
+          <input 
+            type="text" 
+            name="name" 
+            value={formData.name} 
+            onChange={handleChange} 
+            className={`mt-1 block w-full border rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500 ${errors.name ? 'border-red-500' : 'border-gray-300'}`}
           />
-          {errors.name && <p style={{ color: 'red' }}>{errors.name}</p>}
-        </label>
+          {errors.name && <p className="text-red-500 text-xs mt-1 italic">{errors.name}</p>}
+        </div>
 
-        <br /><br />
-
-        <label>
-          Email:
-          <br />
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
+        {/* Email Field */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700">Email</label>
+          <input 
+            type="email" 
+            name="email" 
+            value={formData.email} 
+            onChange={handleChange} 
+            className={`mt-1 block w-full border rounded-md shadow-sm p-2 ${errors.email ? 'border-red-500' : 'border-gray-300'}`}
           />
-          {errors.email && <p style={{ color: 'red' }}>{errors.email}</p>}
-        </label>
+          {errors.email && <p className="text-red-500 text-xs mt-1 italic">{errors.email}</p>}
+        </div>
 
-        <br /><br />
-
-        <label>
-          Message:
-          <br />
-          <textarea
-            name="message"
-            rows="5"
-            value={formData.message}
-            onChange={handleChange}
+        {/* Phone Field */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700">Phone Number</label>
+          <input 
+            type="tel" 
+            name="phone" 
+            placeholder="1234567890"
+            value={formData.phone} 
+            onChange={handleChange} 
+            className={`mt-1 block w-full border rounded-md shadow-sm p-2 ${errors.phone ? 'border-red-500' : 'border-gray-300'}`}
           />
-          {errors.message && <p style={{ color: 'red' }}>{errors.message}</p>}
-        </label>
+          {errors.phone && <p className="text-red-500 text-xs mt-1 italic">{errors.phone}</p>}
+        </div>
 
-        <br /><br />
+        {/* Message Field */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700">Message</label>
+          <textarea 
+            name="message" 
+            rows="4" 
+            value={formData.message} 
+            onChange={handleChange} 
+            className={`mt-1 block w-full border rounded-md shadow-sm p-2 ${errors.message ? 'border-red-500' : 'border-gray-300'}`}
+          ></textarea>
+          {errors.message && <p className="text-red-500 text-xs mt-1 italic">{errors.message}</p>}
+        </div>
 
-        <label>
-          Phone Number:
-          <br />
-            <input 
-              type="tel" 
-              name="phone" 
-              placeholder="1234567890"
-              value={formData.phone} 
-              onChange={handleChange} 
-          />
-          {errors.phone && <p style={{color: 'red', fontSize: '12px'}}>{errors.phone}</p>}
-        </label>
-        <br /><br />
-
-        <button type="submit">Submit</button>
+        <button 
+          type="submit" 
+          className="w-full bg-blue-600 text-white font-semibold py-2 px-4 rounded-md hover:bg-blue-700 transition duration-200 shadow-md"
+        >
+          Submit
+        </button>
       </form>
 
+      {/* Result Section */}
       {submittedData && (
-        <div style={{ marginTop: '20px' }}>
-          <h3>Submitted Data:</h3>
-          <pre>{JSON.stringify(submittedData, null, 2)}</pre>
+        <div className="mt-8 p-4 bg-green-50 border border-green-200 rounded-lg animate-fade-in">
+          <h3 className="text-green-800 font-bold mb-2">✅ Submission Successful:</h3>
+          <pre className="text-xs bg-white p-3 rounded border overflow-auto text-gray-700">
+            {JSON.stringify(submittedData, null, 2)}
+          </pre>
         </div>
       )}
     </div>
-  );
+  </div>
+);
 }
 
 export default ContactForm;
